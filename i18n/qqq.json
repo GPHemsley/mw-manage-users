@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gordon P. Hemsley"
+		]
+	},
+	"manageusers": "The name of the ManageUsers extension's entry on [[Special:SpecialPages]]",
+	"manageusers-desc": "{{desc}}",
+	"manageusers-summary": "Description appearing on top of [[Special:ManageUsers]]."
+}

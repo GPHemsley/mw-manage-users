@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gordon P. Hemsley"
+		]
+	},
+	"manageusers": "Manage users",
+	"manageusers-desc": "Manage users here",
+	"manageusers-summary": "Manage users",
+	"right-manageusers": "Manage users"
+}
