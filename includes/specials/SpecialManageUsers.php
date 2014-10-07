@@ -16,20 +16,42 @@ class InactiveUsersPager extends UsersPager
 		$query['fields'][] = 'user_touched';
 
 		$query['conds'][] = 'user_editcount = 0';
+		$query['conds'][] = 'user_touched < 20100401000000';
 
-		var_dump($query);
+		$query['options']['ORDER BY'] = 'user_touched ASC, user_editcount ASC';
+
+		$this->mQuery = $query;
 
 		return $query;
 	}
 
-	public function formatRow( $row )
+	public function getStartBody()
 	{
 		ob_start();
-		var_dump( $row );
-		$row_dump = ob_get_contents();
+		var_dump( $this->mQuery );
+		$output = Html::rawElement( 'pre', array( 'style' => 'font-size: smaller;' ), ob_get_contents() );
 		ob_end_clean();
 
-		return Html::rawElement( 'li', array(), Html::rawElement( 'pre', array(), $row_dump ) );
+		return $output;
+	}
+
+	public function formatRow( $row )
+	{
+		$username = $row->user_name;
+
+		$output = Linker::userLink( $row->user_id, $username );
+		$output .= ' &ndash; ' . $this->msg( 'usereditcount' )->numParams( $row->edits )->escaped();
+
+		$Language = new Language();
+
+		$output .= ' &ndash; ' . $Language->userTimeAndDate( $row->user_touched, $this->getUser() );
+
+		ob_start();
+		var_dump( $row );
+		$output .= Html::rawElement( 'pre', array(), ob_get_contents() );
+		ob_end_clean();
+
+		return Html::rawElement( 'li', array(), $output );
 	}
 }
 
